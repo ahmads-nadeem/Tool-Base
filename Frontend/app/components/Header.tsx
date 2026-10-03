@@ -41,7 +41,9 @@ export default function Header() {
               className="object-contain"
               // w-10 h-10
             />
+            <span className='font-bold text-2xl'>SUDO</span>
           </figure>
+          
 
           {/* Desktop Nav */}
           <nav className="hidden md:block">
