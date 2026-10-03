@@ -1,4 +1,4 @@
-import ResumeInput from "@/app/components/ResumeInput"
+import ResumeInput from "@/components/ResumeInput"
 export default function page() {
   return (
     <>

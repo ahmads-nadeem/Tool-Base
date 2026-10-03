@@ -1,4 +1,4 @@
-import SlugInput from "@/app/components/SlugInput";
+import SlugInput from "@/components/SlugInput";
 
 export default function page() {
 

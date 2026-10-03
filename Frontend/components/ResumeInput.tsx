@@ -1,6 +1,6 @@
 "use client"
 
-import CommanInput from "@/app/components/CommanInput";
+import CommanInput from "@/components/CommanInput";
 import LanguageSelection from "./LanguageSelection";
 import { useState } from "react";
 
