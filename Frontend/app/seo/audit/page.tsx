@@ -205,6 +205,8 @@ export default function SeoAuditPage() {
     setError("");
     setRaw(null);
     try {
+      console.log(ENDPOINTS[mode]);
+      
       const res = await fetch(ENDPOINTS[mode], {
         method: "POST",
         headers: { "Content-Type": "application/json" },
