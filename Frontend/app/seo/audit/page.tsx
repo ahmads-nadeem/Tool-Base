@@ -41,7 +41,7 @@ function runChecks(a: Audit): Check[] {
     !t
       ? { label: "Title", level: "fail", note: "Title missing hai" }
       : t.length < 30 || t.length > 60
-        ? { label: "Title", level: "warn", note: `${t.length} characters (30–60 best hain)` }
+        ? { label: "Title", level: "warn", note: `${t.length} characters (30–60 Recommended)` }
         : { label: "Title", level: "pass", note: `${t.length} characters` }
   );
 

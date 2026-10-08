@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/public/logo.webp"
+// import seo
 
 const toolLinks = [
   { label: "Resume Generator", href: "/resume-generator" },

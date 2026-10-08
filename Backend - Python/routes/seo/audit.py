@@ -1,6 +1,8 @@
+# import asyncio
 import requests
+# from pyppeteer import launch
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright # type: ignore
+from playwright.sync_api import sync_playwright #type: ignore
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, field_validator
 router = APIRouter()
@@ -62,28 +64,28 @@ def commonAudit(soup):
 def scrape_dynamic_seo(url: str):
     if not url.startswith(("http://", "https://")):
         url = f"https://{url}"
+
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
-        # domcontentloaded fast hai aur stuck nahi hota
         page.goto(url, wait_until="domcontentloaded", timeout=30000)
         html_content = page.content()
         browser.close()
         soupData = BeautifulSoup(html_content, "html.parser")
         titles, meta_des, og_title, og_description, og_url, og_image, twitter_title, twitter_description, twitter_image, h1, h2 = commonAudit(soupData)
-        return {
-            "title": titles[0].text if titles else None,
-            "description": meta_des[0]["content"] if meta_des and meta_des[0].has_attr("content") else None,
-            "og_title": og_title,
-            "og_description": og_description,
-            "og_url": og_url,
-            "og_image": og_image,
-            "twitter_title": twitter_title,
-            "twitter_desc": twitter_description,
-            "twitter_image": twitter_image,
-            "h1": h1,
-            "h2": h2
-        }
+    return {
+        "title": titles[0].text if titles else None,
+        "description": meta_des[0]["content"] if meta_des and meta_des[0].has_attr("content") else None,
+        "og_title": og_title,
+        "og_description": og_description,
+        "og_url": og_url,
+        "og_image": og_image,
+        "twitter_title": twitter_title,
+        "twitter_desc": twitter_description,
+        "twitter_image": twitter_image,
+        "h1": h1,
+        "h2": h2
+    }
 def scrape_static_seo(html_content: str):
     soupData = BeautifulSoup(html_content, "html.parser")
     titles, meta_des, og_title, og_description, og_url, og_image, twitter_title, twitter_description, twitter_image, h1, h2 = commonAudit(soupData)
@@ -130,9 +132,7 @@ def audit(payload: url_req):
     else:
         responseData = scrape_dynamic_seo(payload.url_field)
     # print(f"Title:{responseData["title"]} \n Description:{responseData["description"]} \n OG-Title:{responseData["og_title"]} \n OG-Description:{responseData["og_description"]} \n H1:{responseData["h1"]} \n H2:{responseData["h2"]}")
-
-
-    print(responseData["twitter_desc"])
+    # print(responseData["twitter_desc"])
     return audit_res(
                         title = responseData["title"],
                         description = responseData["description"],
@@ -146,3 +146,7 @@ def audit(payload: url_req):
                         h1 = responseData["h1"],
                         h2 = responseData["h2"]
                     )
+
+
+
+
