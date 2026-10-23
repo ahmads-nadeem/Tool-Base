@@ -362,7 +362,7 @@ export default function FormatConverterPage() {
 
             {items.length === 0 ? (
               <div className="mt-6 flex flex-1 items-center justify-center rounded-xl border border-dashed border-neutral-800 py-24 text-center text-neutral-500">
-                Abhi koi image select nahi ki.
+                No image selected yet.
               </div>
             ) : (
               <ul className="mt-6 space-y-3">
