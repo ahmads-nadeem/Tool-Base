@@ -6,12 +6,12 @@ from routes.converter.imageConvertor import convertor
 app = FastAPI()
 origins = [
     "https://toolbasewebsite.vercel.app",  # Aapka Vercel domain
-    "http://localhost:3000",               # Local development ke liye
+    # "http://localhost:3000",               # Local development ke liye
 ]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
-    allow_credentials=False,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
