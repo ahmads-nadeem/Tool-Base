@@ -11,13 +11,13 @@ type ImageTool = {
 const imageTools: ImageTool[] = [
   {
     title: "Format Converter",
-    description: "Convert images between JPG, PNG, WebP aur AVIF formats.",
+    description: "Convert images between JPG, PNG, WebP or AVIF formats.",
     href: "/images/format-converter",
     icon: ArrowRightLeft,
   },
   {
     title: "Image Compressor",
-    description: "Image ka size kam karo quality kharab kiye baghair.",
+    description: "Reduce the image size without compromising quality.",
     href: "/images/image-compressor",
     icon: ImageDown,
   },
@@ -25,7 +25,7 @@ const imageTools: ImageTool[] = [
 
 export const metadata = {
   title: "Image Tools | SUDO",
-  description: "Image converter aur compressor — sab image tools ek jagah.",
+  description: "All image tools in one place — to convert, compress, and optimize.",
 };
 
 export default function Images() {
@@ -37,7 +37,7 @@ export default function Images() {
           Image <span className="text-red-600">Tools</span>
         </h1>
         <p className="mt-3 text-lg text-neutral-400">
-          Sab image tools ek jagah — convert, compress aur optimize ke liye.
+          All image tools in one place — to convert, compress, and optimize.
         </p>
 
         {/* Cards grid */}

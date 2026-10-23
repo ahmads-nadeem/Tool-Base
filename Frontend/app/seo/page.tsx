@@ -99,7 +99,7 @@ export default function SeoToolsPage() {
             SEO <span className="text-red-600">Tools</span>
           </h1>
           <p className="mt-2 text-white/60 text-sm sm:text-base">
-            Sab SEO tools ek jagah — audit, analysis aur optimization ke liye.
+            All SEO tools in one place — for audit, analysis, and optimization.
           </p>
         </div>
 

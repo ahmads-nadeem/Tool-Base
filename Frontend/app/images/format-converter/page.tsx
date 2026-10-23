@@ -232,7 +232,7 @@ export default function FormatConverterPage() {
           Format <span className="text-red-600">Converter</span>
         </h1>
         <p className="mt-3 text-lg text-neutral-400">
-          Ek ya zyada images upload karo, format chuno aur sab ko ek click mein convert karo.
+          Upload one or more images, select the format, and convert them all with a single click.
         </p>
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[420px_1fr]">
@@ -261,7 +261,7 @@ export default function FormatConverterPage() {
             >
               <UploadCloud className="text-red-500" size={36} strokeWidth={1.6} />
               <p className="mt-3 text-base font-medium text-white">
-                Images yahan drop karo ya click karo
+                Drop images here or click
               </p>
               <p className="mt-1 text-sm text-neutral-500">
                 Max {MAX_FILES} images • {MAX_FILE_MB}MB each

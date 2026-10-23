@@ -3,26 +3,26 @@ import Link from 'next/link'
 import { useState } from "react";
 
 const navItems = [
-{
-  page: "Resume Generator",
-  link: '/resume-generator'
-},
-{
-  page: "SEO",
-  link: "/seo"
-},
-{
-  page: "Images",
-  link: '/images'
-},
-{
-  page: "Docs",
-  link: '#'
-},
-{
-  page: "Barcode",
-  link: '#'
-}
+  {
+    page: "Resume Generator",
+    link: '/resume-generator'
+  },
+  {
+    page: "SEO",
+    link: "/seo"
+  },
+  {
+    page: "Images",
+    link: '/images'
+  },
+  {
+    page: "Docs",
+    link: '#'
+  },
+  {
+    page: "Barcode",
+    link: '#'
+  }
 ];
 
 export default function Header() {
@@ -32,18 +32,22 @@ export default function Header() {
     <header suppressHydrationWarning className="bg-black border-b border-red-600/30 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <figure className="flex items-center m-0 cursor-pointer">
-            <img
-              width={60}
-              height={40}
-              src="/logo.webp"
-              alt="Logo"
-              className="object-contain"
+          <Link
+          href='/'
+          >
+            <figure className="flex items-center m-0 cursor-pointer">
+              <img
+                width={60}
+                height={40}
+                src="/logo.webp"
+                alt="Logo"
+                className="object-contain"
               // w-10 h-10
-            />
-            <span className='font-bold text-2xl'>SUDO</span>
-          </figure>
-          
+              />
+              <span className='font-bold text-2xl'>SUDO</span>
+            </figure>
+          </Link>
+
 
           {/* Desktop Nav */}
           <nav className="hidden md:block">
