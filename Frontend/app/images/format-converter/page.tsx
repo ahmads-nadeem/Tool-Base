@@ -14,7 +14,7 @@ import {
   Archive,
 } from "lucide-react";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = process.env.NEXT_PUBLIC_FAST_API;
 const CONVERT_ENDPOINT = `${API_URL}/image/convert`;
 
 const FORMATS = ["webp", "png", "jpeg", "jpg", "avif", "bmp", "tiff"] as const;
