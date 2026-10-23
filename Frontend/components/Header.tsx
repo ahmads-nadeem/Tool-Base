@@ -13,10 +13,10 @@ const navItems = [
 },
 {
   page: "Images",
-  link: '#'
+  link: '/images'
 },
 {
-  page: "Files",
+  page: "Docs",
   link: '#'
 },
 {
