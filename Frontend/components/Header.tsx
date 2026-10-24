@@ -21,7 +21,7 @@ const navItems = [
   },
   {
     page: "Barcode",
-    link: '#'
+    link: 'barcode'
   }
 ];
 

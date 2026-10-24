@@ -22,7 +22,7 @@ type Format = (typeof FORMATS)[number];
 
 const MAX_FILES = 20;
 const MAX_FILE_MB = 15;
-const CONCURRENCY = 3;
+const CONCURRENCY = 1;
 
 type Status = "pending" | "converting" | "done" | "error";
 
