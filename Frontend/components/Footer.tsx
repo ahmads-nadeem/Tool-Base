@@ -8,8 +8,8 @@ import logo from "@/public/logo.webp"
 const toolLinks = [
   { label: "Resume Generator", href: "/resume-generator" },
   { label: "SEO", href: "/seo" },
-  { label: "Images", href: "/image" },
-  { label: "Files", href: "/docs" },
+  { label: "Images", href: "/images" },
+  { label: "Docs", href: "/docs" },
   { label: "Barcode", href: "/barcode" },
 ];
 
