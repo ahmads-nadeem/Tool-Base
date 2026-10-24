@@ -17,7 +17,7 @@ const navItems = [
   },
   {
     page: "Docs",
-    link: '#'
+    link: '/docs'
   },
   {
     page: "Barcode",
