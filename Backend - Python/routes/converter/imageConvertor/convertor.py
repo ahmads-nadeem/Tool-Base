@@ -3,7 +3,7 @@ from fastapi.responses import StreamingResponse
 from typing import List
 from PIL import Image
 import io
-import zipfile
+# import zipfile
 
 router = APIRouter()
 
@@ -27,6 +27,12 @@ async def mutlipleImages(
         # Image data ko memory me fully load karne ke liye zaroori hai
         image.load()
 
+        MAX_DIMENSION = (
+            4000  # Aap ise apni zaroorat ke mutabiq 3000 ya 4000 rakh sakte hain
+        )
+        if image.width > MAX_DIMENSION or image.height > MAX_DIMENSION:
+            image.thumbnail((MAX_DIMENSION, MAX_DIMENSION), Image.Resampling.LANCZOS)
+
         pil_format = format_mapping.get(target_format, target_format.upper())
         if pil_format.upper() == "JPG":
             pil_format = "JPEG"
@@ -49,19 +55,6 @@ async def mutlipleImages(
 
     return all_buffers
 
-
-def zipping(all_buffers, target_format):
-    zip_buffer = io.BytesIO()
-    with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
-        for index, img_buffer in enumerate(all_buffers):
-            file_name = f"converted_{index + 1}.{target_format}"
-            zip_file.writestr(file_name, img_buffer.getvalue())
-
-    # Buffer seek ko alag line par call karein taake integer return na ho
-    zip_buffer.seek(0)
-    return zip_buffer
-
-
 @router.post("/convert")
 async def convert_image(
     file: List[UploadFile] = File(...),
@@ -83,44 +76,56 @@ async def convert_image(
         raise HTTPException(status_code=400, detail="Unsupported format requested.")
 
     try:
-        # Agar aik se zyada files ek sath aati hain toh ZIP return karega
-        if len(file) > 1:
-            images = await mutlipleImages(file, format_mapping, target_format)
-            output = zipping(images, target_format)
-            media_type = "application/zip"
-            return StreamingResponse(
-                output,
-                media_type=media_type,
-                headers={"Content-Disposition": 'attachment; filename="Images.zip"'},
-            )
+        img = file[0]
+        if img.filename is None:
+            raise HTTPException(status_code=400, detail="Invalid filename!")
+        images = await mutlipleImages([img], format_mapping, target_format)
+        output_buffer = images[0]
+        # Content type determination
+        media_type = (
+            f"image/{'jpeg' if target_format in ['jpg', 'jpeg'] else target_format}"
+        )
+        # Original name ke sath new extension lagana
+        original_name = img.filename.rsplit(".", 1)[0]
+        download_filename = f"{original_name}.{target_format}"
 
-        # Agar sirf AIK file hai (frontend ke concurrent setup ke mutabiq)
-        else:
-            img = file[0]
-            if img.filename is None:
-                raise HTTPException(status_code=400, detail="Invalid filename!")
-
-            images = await mutlipleImages([img], format_mapping, target_format)
-            output_buffer = images[0]
-
-            # Content type determination
-            media_type = (
-                f"image/{'jpeg' if target_format in ['jpg', 'jpeg'] else target_format}"
-            )
-
-            # Original name ke sath new extension lagana
-            original_name = img.filename.rsplit(".", 1)[0]
-            download_filename = f"{original_name}.{target_format}"
-
-            return StreamingResponse(
-                output_buffer,
-                media_type=media_type,
-                headers={
-                    "Content-Disposition": f'attachment; filename="{download_filename}"'
-                },
-            )
+        return StreamingResponse(
+            output_buffer,
+            media_type=media_type,
+            headers={
+                "Content-Disposition": f'attachment; filename="{download_filename}"'
+            },
+        )
 
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Image conversion failed: {str(e)}"
         )
+
+
+
+# Agar aik se zyada files ek sath aati hain toh ZIP return karega
+        # if len(file) > 1:
+        #     images = await mutlipleImages(file, format_mapping, target_format)
+        #     output = zipping(images, target_format)
+        #     media_type = "application/zip"
+        #     return StreamingResponse(
+        #         output,
+        #         media_type=media_type,
+        #         headers={"Content-Disposition": 'attachment; filename="Images.zip"'},
+        #     )
+
+        # Agar sirf AIK file hai (frontend ke concurrent setup ke mutabiq)
+        # else:
+
+
+# def zipping(all_buffers, target_format):
+#     zip_buffer = io.BytesIO()
+#     with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
+#         for index, img_buffer in enumerate(all_buffers):
+#             file_name = f"converted_{index + 1}.{target_format}"
+#             zip_file.writestr(file_name, img_buffer.getvalue())
+
+#     # Buffer seek ko alag line par call karein taake integer return na ho
+#     zip_buffer.seek(0)
+#     return zip_buffer

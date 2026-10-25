@@ -20,9 +20,9 @@ const CONVERT_ENDPOINT = `${API_URL}/image/convert`;
 const FORMATS = ["webp", "png", "jpeg", "jpg", "avif", "bmp", "tiff"] as const;
 type Format = (typeof FORMATS)[number];
 
-const MAX_FILES = 20;
-const MAX_FILE_MB = 15;
-const CONCURRENCY = 1;
+const MAX_FILES = 5;
+const MAX_FILE_MB = 5;
+const CONCURRENCY = 5;
 
 type Status = "pending" | "converting" | "done" | "error";
 
